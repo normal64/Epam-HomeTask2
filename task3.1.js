@@ -1,12 +1,9 @@
 function capitalizeDe(str) {
-  console.log(`str`, str.split(""));
   const splitted = str.split("");
   let capitalizeThis = splitted.map((elem) => {
     if (elem.toLowerCase() === elem) {
-      console.log(`elem.toUpperCase()`, elem.toUpperCase());
       return elem.toUpperCase();
     } else {
-      console.log(`elem.toLowerCase()`, elem.toLowerCase());
       return elem.toLowerCase();
     }
   });

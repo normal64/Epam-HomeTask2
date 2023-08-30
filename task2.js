@@ -6,28 +6,39 @@ function parseAndStore(str) {
     data[key] = value;
   });
 
-  //console.log("data", data);
   let dataFromStorage = localStorage.getItem("data");
-  console.log(dataFromStorage);
+  console.log("data from storage", dataFromStorage);
   let existingDataObj;
   if (dataFromStorage) {
     existingDataObj = JSON.parse(dataFromStorage);
     const existingKeys = Object.keys(existingDataObj);
+    console.log("existing keys", existingKeys);
     const newKeys = Object.keys(data);
-    const keysMatch = existingKeys.every((key) => newKeys.includes(key));
+    console.log("newKeys", newKeys);
+
+    const keysMatch = newKeys.every((key) => existingKeys.includes(key));
+
+    console.log("keysMatch", keysMatch);
     if (keysMatch) {
       existingDataObj = { ...existingDataObj, ...data };
       console.log("key match object", existingDataObj);
       localStorage.setItem("data", JSON.stringify(existingDataObj));
     } else {
       console.log("keys do not match");
-      const timestamp = new Date().getTime();
-      existingDataObj[`data_${timestamp}`] = data;
+      let tempData = {};
+      newKeys.forEach((key) => {
+        if (!existingKeys.includes(key)) {
+          tempData[key] = data[key];
+        }
+      });
+      console.log(tempData);
+      existingDataObj = { ...existingDataObj, ...tempData };
+
       localStorage.setItem("data", JSON.stringify(existingDataObj));
     }
   } else {
     existingDataObj = data;
-
+    console.log("key do NOT match object", existingDataObj);
     localStorage.setItem("data", JSON.stringify(existingDataObj));
   }
 }

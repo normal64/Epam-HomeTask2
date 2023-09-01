@@ -12,7 +12,27 @@ function quickSort(arr) {
   }
   return quickSort(left).concat(pivot, quickSort(right));
 }
-//quickSort([0]);
-//quickSort([5, 2, 6, 1, 30, -10]);
+
+// if you want to make it a bit harder you can add sorting for strings by first letter too, but it's entirely up to you.
+function quickSortAdv(arr) {
+	
+	let resource;
+	resource = typeof(arr) ==="string" ? arr.split("") : arr
+  if (resource.length < 2) return resource;
+  let pivot = resource[0];
+  const left = [];
+  const right = [];
+  for (let i = 1; i < resource.length; i++) {
+    if (pivot > resource[i]) {
+      left.push(resource[i]);
+    } else {
+      right.push(resource[i]);
+    }
+  }
+  return quickSort(left).concat(pivot, quickSort(right));
+}
+
 console.log(quickSort([0]));
 console.log(quickSort([5, 2, 6, 1, 30, -10]));
+console.log(quickSortAdv('ybacfd'));
+console.log(quickSortAdv([5, 2, 6, 1, 30, -10]));
